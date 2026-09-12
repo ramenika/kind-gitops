@@ -1,0 +1,27 @@
+image:
+  repository: localhost:5001/python-app
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: python.localhost
+      paths:
+        - path: /
+          pathType: Prefix
+
+livenessProbe:
+  httpGet: null
+  tcpSocket:
+    port: http
+
+readinessProbe:
+  httpGet: null
+  tcpSocket:
+    port: http
